@@ -1,34 +1,45 @@
 #!/usr/bin/env python3.4
 
 from selenium import webdriver
+import unittest
 
-browser = webdriver.Firefox()
+class NewVisitonTest(unittest.TestCase):
+    def setUp(self):
+        self.browser = webdriver.Firefox()
+        self.browser.implicitly_wait(3)
 
-# Edyta dowiedziala sie o nowej, wspanialej aplikacji w postaci listy rzeczy do zrobienia.
-# Postanowila wiec przejsc na strone glowna tej aplikacji
-browser.get('http://localhost:8000')
+    def tearDown(self):
+        self.browser.quit()
 
-# Zwrocila uwage, ze tytul strony i naglowek zawieraja slowo "Listy".
-assert 'Listy' in browser.title, "Tytuł okna przeglądarki: " + browser.title
+    def test_can_start_a_list_and_retrieve_it_later(self):
+        # Edyta dowiedziala sie o nowej, wspanialej aplikacji w postaci listy rzeczy do zrobienia.
+        # Postanowila wiec przejsc na strone glowna tej aplikacji
+        self.browser.get('http://localhost:8000')
 
-# Od razu zostaje zachęcona, aby wpisać rzecz do zrobienia.
+        # Zwrocila uwage, ze tytul strony i naglowek zawieraja slowo "Listy".
+        self.assertIn('Listy', self.browser.title)
+        self.fail('Zakonczenie testu')
 
-# W polu tekstowym wpisała "Kupić pawie pióra" (hobby Edyty
-# polega na tworzeniu ozdobnych przynęt).
+        # Od razu zostaje zachęcona, aby wpisać rzecz do zrobienia.
 
-# Po naciśnięciu klawisza Enter strona została uaktualniona i wyświetla
-# "1: Kupić pawie pióra" jako element listy rzeczy do zrobienia.
+        # W polu tekstowym wpisała "Kupić pawie pióra" (hobby Edyty
+        # polega na tworzeniu ozdobnych przynęt).
 
-# Na stronie nadal znajduje się pole tekstowe zachęcające do podania kolejnego zadania.
-# Edyta wpisała "Użyć pawich piór do zrobienia przynęty" (Edyta jest niezwykle skrupulatna).
+        # Po naciśnięciu klawisza Enter strona została uaktualniona i wyświetla
+        # "1: Kupić pawie pióra" jako element listy rzeczy do zrobienia.
 
-# Strona została ponownie uaktualniona i teraz wyświetla dwa elementy na liście rzeczy do zrobienia.
+        # Na stronie nadal znajduje się pole tekstowe zachęcające do podania kolejnego zadania.
+        # Edyta wpisała "Użyć pawich piór do zrobienia przynęty" (Edyta jest niezwykle skrupulatna).
 
-# Edyta była ciekawa, czy witryna zapamięta jej listę. Zwróciła uwagę na wygenerowany dla niej
-# unikatowy adres URL, obok którego znajduje się pewien tekst z wyjaśnieniem
+        # Strona została ponownie uaktualniona i teraz wyświetla dwa elementy na liście rzeczy do zrobienia.
 
-# Przechodzi pod podany adres URL i widzi wyświetloną swoją listę rzeczy do zrobienia.
+        # Edyta była ciekawa, czy witryna zapamięta jej listę. Zwróciła uwagę na wygenerowany dla niej
+        # unikatowy adres URL, obok którego znajduje się pewien tekst z wyjaśnieniem
 
-# Usatysfakcjonowana kładzie się spać.
-browser.quit()
+        # Przechodzi pod podany adres URL i widzi wyświetloną swoją listę rzeczy do zrobienia.
+
+        # Usatysfakcjonowana kładzie się spać.
+
+if __name__ == '__main__':
+    unittest.main(warnings='ignore')
 
